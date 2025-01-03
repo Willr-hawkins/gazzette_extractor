@@ -8,7 +8,11 @@
 <body>
     <h1>Success</h1>
     <hr>
-    <p>Your file was uploaded succesfully</p>
+    <ul>
+        <li><strong>Company Name:</strong> {{ extracted_info.company_name }}</li>
+        <li><strong>Company Identifier:</strong> {{ extracted_info.company_identifier }}</li>
+        <li><strong>Document Purpose:</strong> {{ extracted_info.document_purpose }}</li>
+    </ul>
     <a href="/">Upload another file</a>
 </body>
 </html>
