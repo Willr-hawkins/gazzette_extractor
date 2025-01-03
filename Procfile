@@ -1,1 +1,1 @@
-web: gunicorn gazzette_extractor.wsgi
+web: gunicorn gazzette_extractor.wsgi:application
