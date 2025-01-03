@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'gazzette_extractor.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://localhost:5432/your_local_db'  # fallback in case the config is not set
+        default=os.getenv('DATABASE_URL', f'sqlite:///{os.path.join(BASE_DIR, "db.sqlite3")}')
     )
 }
 
