@@ -30,6 +30,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['8000-willrhawkin-gazzetteext-enu7srjm9lu.ws-eu117.gitpod.io']
 
+# Trusted Origins
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-willrhawkin-gazzetteext-enu7srjm9lu.ws-eu117.gitpod.io'
+]
+
 
 # Application definition
 
@@ -40,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'extractor',
 ]
 
 MIDDLEWARE = [
@@ -78,7 +84,10 @@ WSGI_APPLICATION = 'gazzette_extractor.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 django_heroku.settings(locals())
@@ -120,8 +129,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# Heroku-specific static files configuration
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
