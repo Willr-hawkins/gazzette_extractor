@@ -2,12 +2,14 @@ from django.shortcuts import render
 from .forms import FileUploadForm
 import os
 from django.conf import settings
+from django.http import HttpResponse
 
 import pytesseract
 from PIL import Image
 from pdf2image import convert_from_path
 import spacy
-from langdetect import detect  # Import langdetect here
+from langdetect import detect
+import json
 
 # Load spaCy models
 nlp_en = spacy.load('en_core_web_sm')
@@ -23,7 +25,18 @@ def upload_file(request):
             upload_file = form.save()
             file_path = os.path.join(settings.MEDIA_ROOT, upload_file.file.name)
             extracted_info = process_file(file_path)
-            return render(request, 'extractor/success.html', {'extracted_info': extracted_info})
+            
+            # Create json file
+            json_data = json.dumps(extracted_info, indent=4)
+            json_filename = f"{upload_file.file.name}_extracted_data.json"
+            json_file_path = os.path.join(settings.MEDIA_ROOT, json_filename)
+
+            # Write json file
+            with open(json_file_path, 'w') as json_file:
+                json_file.write(json_data)
+            
+            json_file_url = os.path.join(settings.MEDIA_URL, json_filename)
+            return render(request, 'extractor/success.html', {'json_file_url': json_file_url})
     else:
         form = FileUploadForm()
     return render(request, 'extractor/upload.html', {'form': form})
