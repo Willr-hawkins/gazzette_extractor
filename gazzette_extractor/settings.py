@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY' ,'')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY' ,'zt1k#$)*2qwhnex)@hr3_p7878q96eisuxp1+pv^m+5p)rnw5e')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'gazzette_extractor.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL', f'sqlite:///{os.path.join(BASE_DIR, "db.sqlite3")}')
+        default='postgres://localhost:5432/your_local_db'  # fallback in case the config is not set
     )
 }
 
